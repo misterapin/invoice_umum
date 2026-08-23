@@ -2,24 +2,39 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Aplikasi Cetak Nota Thermal</title>
-    <!-- Memuat Google Fonts (Inter) untuk tampilan modern -->
+    <title>Aplikasi Cetak Nota Thermal 58mm</title>
+    <!-- Memuat Google Fonts (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Gaya Umum & Tema Modern */
+        /* Layout Utama: Form di Kiri, Live Preview 58mm di Kanan */
         body {
             background-color: #f4f6f9;
             font-family: 'Inter', sans-serif;
             color: #333;
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
 
+        .main-container {
+            display: flex;
+            gap: 30px;
+            max-width: 950px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Styling Form Input */
         .form-container {
-            max-width: 520px;
-            margin: 30px auto;
-            padding: 30px;
+            flex: 1;
+            min-width: 380px;
+            max-width: 480px;
             background: #ffffff;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border: 1px solid #eaeaea;
@@ -27,41 +42,41 @@
 
         .form-container h2 {
             margin-top: 0;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #111;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border-bottom: 2px solid #f0f2f5;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .form-group label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: #555;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 10px 14px;
-            font-size: 14px;
+            padding: 8px 12px;
+            font-size: 13px;
             border: 1px solid #dcdfe6;
-            border-radius: 8px;
+            border-radius: 6px;
             box-sizing: border-box;
-            transition: all 0.3s ease;
             outline: none;
             font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
         }
 
         .form-group textarea {
             resize: vertical;
-            height: 60px;
+            height: 50px;
         }
 
         .form-group input:focus, .form-group textarea:focus {
@@ -73,99 +88,109 @@
         .product-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 8px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
 
         .product-row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
             align-items: center;
         }
 
         .product-row .prod-nama { flex: 3; }
-        .product-row .prod-qty  { flex: 1; max-width: 60px; text-align: center; }
+        .product-row .prod-qty  { flex: 1; max-width: 50px; text-align: center; }
         .product-row .prod-harga{ flex: 2; }
         
         .product-row input {
-            padding: 8px 10px;
+            padding: 6px 8px;
             border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 13px;
+            border-radius: 4px;
+            font-size: 12px;
             outline: none;
         }
-        .product-row input:focus {
-            border-color: #4f46e5;
-        }
+        .product-row input:focus { border-color: #4f46e5; }
 
         .btn-remove {
             background: #fee2e2;
             color: #dc2626;
             border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s;
+            font-size: 12px;
         }
-        .btn-remove:hover {
-            background: #fecaca;
-        }
+        .btn-remove:hover { background: #fecaca; }
 
         .btn-add {
             background: #f1f5f9;
             color: #4f46e5;
             border: 1px dashed #cbd5e1;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
             width: 100%;
-            font-size: 13px;
-            margin-top: 5px;
-            margin-bottom: 20px;
-            transition: all 0.2s;
+            font-size: 12px;
+            margin-top: 4px;
+            margin-bottom: 15px;
         }
-        .btn-add:hover {
-            background: #e2e8f0;
-            border-color: #94a3b8;
-        }
+        .btn-add:hover { background: #e2e8f0; }
 
         .btn-submit {
             background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
             width: 100%;
-            font-size: 15px;
+            font-size: 14px;
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
-            transition: opacity 0.2s;
         }
-        .btn-submit:hover {
-            opacity: 0.95;
+        .btn-submit:hover { opacity: 0.95; }
+
+        /* Styling Wrapper Preview */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: sticky;
+            top: 20px;
         }
 
-        /* Gaya Struk Thermal 58mm (Cetak) */
+        .preview-container h3 {
+            margin-top: 0;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        /* Tampilan Struk Thermal Ukuran Fisik 58mm */
         .receipt {
-            display: none;
-            width: 48mm;
-            margin: 0 auto;
+            width: 58mm;
+            background: #ffffff;
+            padding: 8mm 4mm;
+            box-sizing: border-box;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
-            font-weight: normal;
+            font-size: 11px;
             color: #000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
         }
         
         .text-center { text-align: center; }
@@ -174,7 +199,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 11px;
             font-family: 'Courier New', Courier, monospace;
         }
         td {
@@ -186,113 +211,123 @@
         @media print {
             @page { margin: 0; }
             body * { visibility: hidden; }
-            .receipt, .receipt * { visibility: visible; }
-            .receipt {
+            #printArea, #printArea * { visibility: visible; }
+            #printArea {
                 display: block;
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
                 top: 0;
+                width: 50mm;
+                box-shadow: none;
+                border: none;
+                padding: 0;
             }
-            .form-container { display: none; }
+            .form-container, .preview-container h3 { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Form Input Modern -->
-    <div class="form-container">
-        <h2>✨ Kasir & Cetak Nota</h2>
-        
-        <div class="form-group">
-            <label>Nama Toko</label>
-            <input type="text" id="inputNamaToko" placeholder="Contoh: Maju Motor">
-        </div>
+    <div class="main-container">
+        <!-- Form Input Modern -->
+        <div class="form-container">
+            <h2>✨ Form Kasir</h2>
+            
+            <div class="form-group">
+                <label>Nama Toko</label>
+                <input type="text" id="inputNamaToko" oninput="updatePreview()" placeholder="Contoh: TOKO ARNIL">
+            </div>
 
-        <div class="form-group">
-            <label>Alamat Toko</label>
-            <textarea id="inputAlamatToko" placeholder="Contoh: Jl. Semangka..."></textarea>
-        </div>
+            <div class="form-group">
+                <label>Alamat Toko</label>
+                <textarea id="inputAlamatToko" oninput="updatePreview()" placeholder="Contoh: Jl. Projosumarto II..."></textarea>
+            </div>
 
-        <div class="form-group">
-            <label>Tanggal Transaksi</label>
-            <input type="text" id="inputTanggal" placeholder="DD/MM/YYYY">
-        </div>
+            <div class="form-group">
+                <label>Tanggal Transaksi</label>
+                <input type="text" id="inputTanggal" oninput="updatePreview()" placeholder="DD/MM/YYYY">
+            </div>
 
-        <div class="form-group">
-            <label>Nama Pelanggan</label>
-            <input type="text" id="inputPelanggan" placeholder="Contoh: UMUM / Nama Pelanggan">
-        </div>
+            <div class="form-group">
+                <label>Nama Pelanggan</label>
+                <input type="text" id="inputPelanggan" oninput="updatePreview()" placeholder="Contoh: UMUM">
+            </div>
 
-        <hr style="border: 0; border-top: 1px solid #f0f2f5; margin: 20px 0;">
-        <label style="font-size: 13px; font-weight: 600; color: #555; display: block; margin-bottom: 10px;">Daftar Produk</label>
-        
-        <!-- Container untuk baris-baris produk -->
-        <div id="productContainer">
-            <div class="product-card">
-                <div class="product-row">
-                    <input type="text" class="prod-nama" placeholder="Nama Produk">
-                    <input type="number" class="prod-qty" placeholder="Qty" min="1">
-                    <input type="number" class="prod-harga" placeholder="Harga">
+            <hr style="border: 0; border-top: 1px solid #f0f2f5; margin: 15px 0;">
+            <label style="font-size: 12px; font-weight: 600; color: #555; display: block; margin-bottom: 8px;">Daftar Produk</label>
+            
+            <!-- Container untuk baris-baris produk -->
+            <div id="productContainer">
+                <div class="product-card">
+                    <div class="product-row">
+                        <input type="text" class="prod-nama" oninput="updatePreview()" placeholder="Nama Produk">
+                        <input type="number" class="prod-qty" oninput="updatePreview()" placeholder="Qty" min="1">
+                        <input type="number" class="prod-harga" oninput="updatePreview()" placeholder="Harga">
+                    </div>
+                    <button type="button" class="btn-remove" onclick="hapusBaris(this)" title="Hapus">✕</button>
                 </div>
-                <button type="button" class="btn-remove" onclick="hapusBaris(this)" title="Hapus baris">✕</button>
+            </div>
+
+            <button type="button" class="btn-add" onclick="tambahBarisProduk()">+ Tambah Produk Lain</button>
+
+            <div class="form-group">
+                <label>Jumlah Pembayaran (Tunai)</label>
+                <input type="number" id="inputBayar" oninput="updatePreview()" placeholder="Nominal uang bayar">
+            </div>
+
+            <button class="btn-submit" onclick="prosesCetak()">Cetak Nota Sekarang</button>
+        </div>
+
+        <!-- Kolom Live Preview 58mm -->
+        <div class="preview-container">
+            <h3>Live Preview (58mm)</h3>
+            
+            <div class="receipt" id="printArea">
+                <div class="text-center" style="font-size: 13px; font-weight: bold;" id="outNamaToko"></div>
+                <div class="text-center" id="outAlamatToko" style="white-space: pre-line;"></div>
+                <br>
+
+                <div>Tanggal   : <span id="outTanggal"></span></div>
+                <div>Pelanggan : <span id="outPelanggan"></span></div>
+                
+                <div>----------------------------</div>
+                
+                <table>
+                    <tr>
+                        <td>Nama</td>
+                        <td class="text-center">Qty</td>
+                        <td class="text-right">Harga</td>
+                        <td class="text-right">Total</td>
+                    </tr>
+                </table>
+                
+                <div>----------------------------</div>
+
+                <table id="outTableProduk">
+                </table>
+
+                <div>----------------------------</div>
+
+                <table>
+                    <tr>
+                        <td>Total</td>
+                        <td class="text-right"><span id="outTotalAll">0</span></td>
+                    </tr>
+                    <tr>
+                        <td>Pembayaran</td>
+                        <td class="text-right"><span id="outBayar">0</span></td>
+                    </tr>
+                    <tr>
+                        <td>Kembali</td>
+                        <td class="text-right"><span id="outKembali">0</span></td>
+                    </tr>
+                </table>
+
+                <br>
+                <div class="text-center">Terima Kasih</div>
             </div>
         </div>
-
-        <button type="button" class="btn-add" onclick="tambahBarisProduk()">+ Tambah Produk Lain</button>
-
-        <div class="form-group">
-            <label>Jumlah Pembayaran (Tunai)</label>
-            <input type="number" id="inputBayar" placeholder="Nominal uang bayar">
-        </div>
-
-        <button class="btn-submit" onclick="prosesCetak()">Cetak Nota Sekarang</button>
-    </div>
-
-    <!-- Template Struk Thermal (Tersembunyi, Tampil Saat Print) -->
-    <div class="receipt" id="printArea">
-        <div class="text-center" style="font-size: 14px; font-weight: bold;" id="outNamaToko"></div>
-        <div class="text-center" id="outAlamatToko" style="white-space: pre-line;"></div>
-        <br>
-
-        <div>Tanggal   : <span id="outTanggal"></span></div>
-        <div>Pelanggan : <span id="outPelanggan"></span></div>
-        
-        <div>********************************</div>
-        
-        <table>
-            <tr>
-                <td>Nama</td>
-                <td class="text-center">Qty</td>
-                <td class="text-right">Harga</td>
-                <td class="text-right">Total</td>
-            </tr>
-        </table>
-        
-        <div>********************************</div>
-
-        <table id="outTableProduk">
-        </table>
-
-        <div>********************************</div>
-
-        <table>
-            <tr>
-                <td>Total</td>
-                <td class="text-right"><span id="outTotalAll"></span></td>
-            </tr>
-            <tr>
-                <td>Pembayaran</td>
-                <td class="text-right"><span id="outBayar"></span></td>
-            </tr>
-            <tr>
-                <td>Kembali</td>
-                <td class="text-right"><span id="outKembali"></span></td>
-            </tr>
-        </table>
-
-        <br>
-        <div class="text-center">Terima Kasih</div>
     </div>
 
     <script>
@@ -300,31 +335,7 @@
             return Number(angka).toLocaleString('id-ID');
         }
 
-        function tambahBarisProduk() {
-            const container = document.getElementById('productContainer');
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <div class="product-row">
-                    <input type="text" class="prod-nama" placeholder="Nama Produk">
-                    <input type="number" class="prod-qty" placeholder="Qty" min="1">
-                    <input type="number" class="prod-harga" placeholder="Harga">
-                </div>
-                <button type="button" class="btn-remove" onclick="hapusBaris(this)" title="Hapus baris">✕</button>
-            `;
-            container.appendChild(card);
-        }
-
-        function hapusBaris(button) {
-            const container = document.getElementById('productContainer');
-            if (container.children.length > 1) {
-                button.parentElement.remove();
-            } else {
-                alert('Minimal harus ada 1 produk dalam transaksi!');
-            }
-        }
-
-        function prosesCetak() {
+        function updatePreview() {
             const namaToko = document.getElementById('inputNamaToko').value;
             const alamatToko = document.getElementById('inputAlamatToko').value;
             const tanggal = document.getElementById('inputTanggal').value;
@@ -339,24 +350,26 @@
             let htmlProduk = '';
 
             for (let i = 0; i < namaElements.length; i++) {
-                const nama = namaElements[i].value || '-';
+                const nama = namaElements[i].value || '';
                 const qty = parseFloat(qtyElements[i].value) || 0;
                 const harga = parseFloat(hargaElements[i].value) || 0;
                 const subtotal = qty * harga;
 
                 totalBelanja += subtotal;
 
-                htmlProduk += `
-                    <tr>
-                        <td colspan="4">${nama}</td>
-                    </tr>
-                    <tr>
-                        <td>${qty} X ${formatRupiah(harga)}</td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-right">${formatRupiah(subtotal)}</td>
-                    </tr>
-                `;
+                if (nama || qty > 0 || harga > 0) {
+                    htmlProduk += `
+                        <tr>
+                            <td colspan="4">${nama}</td>
+                        </tr>
+                        <tr>
+                            <td>${qty} X ${formatRupiah(harga)}</td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-right">${formatRupiah(subtotal)}</td>
+                        </tr>
+                    `;
+                }
             }
 
             const kembali = bayar - totalBelanja;
@@ -369,9 +382,40 @@
             document.getElementById('outTotalAll').innerText = formatRupiah(totalBelanja);
             document.getElementById('outBayar').innerText = formatRupiah(bayar);
             document.getElementById('outKembali').innerText = formatRupiah(kembali);
+        }
 
+        function tambahBarisProduk() {
+            const container = document.getElementById('productContainer');
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-row">
+                    <input type="text" class="prod-nama" oninput="updatePreview()" placeholder="Nama Produk">
+                    <input type="number" class="prod-qty" oninput="updatePreview()" placeholder="Qty" min="1">
+                    <input type="number" class="prod-harga" oninput="updatePreview()" placeholder="Harga">
+                </div>
+                <button type="button" class="btn-remove" onclick="hapusBaris(this)" title="Hapus">✕</button>
+            `;
+            container.appendChild(card);
+            updatePreview();
+        }
+
+        function hapusBaris(button) {
+            const container = document.getElementById('productContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+                updatePreview();
+            } else {
+                alert('Minimal harus ada 1 produk dalam transaksi!');
+            }
+        }
+
+        function prosesCetak() {
+            updatePreview();
             window.print();
         }
+
+        updatePreview();
     </script>
 
 </body>
